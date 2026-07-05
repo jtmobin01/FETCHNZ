@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fetch NZ — We Get It. You Keep It.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0A0A0A;
+      --white:   #F5F5F0;
+      --accent:  #C8FF00;
+      --mid:     #1A1A1A;
+      --muted:   #888;
+      --border:  #222;
+      --radius:  12px;
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--black);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,255,0,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -2px;
+      max-width: 900px;
+      margin-bottom: 32px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--black);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 16px 36px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform 0.2s, opacity 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    .hero-note {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      overflow: hidden;
+      background: var(--mid);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 28s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-track span {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 32px;
+    }
+
+    .marquee-track span.hi { color: var(--accent); }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .section-body {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 60px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    #how { border-top: 1px solid var(--border); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .step {
+      background: var(--mid);
+      padding: 40px 32px;
+      position: relative;
+    }
+
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 72px;
+      font-weight: 800;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 24px;
+      letter-spacing: -3px;
+    }
+
+    .step h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .step p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── BRANDS ── */
+    #brands { border-top: 1px solid var(--border); }
+
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .brand-card {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .brand-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .brand-card .brand-name {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .brand-card .brand-from {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .brand-card .brand-tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(200,255,0,0.12);
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    /* ── PRICING ── */
+    #pricing { border-top: 1px solid var(--border); }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .pricing-card {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+    }
+
+    .pricing-card.featured {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .pricing-card.featured * { color: var(--black) !important; }
+
+    .pricing-tier {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .pricing-amount {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .pricing-desc {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pricing-features li {
+      font-size: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .pricing-card.featured .pricing-features li::before {
+      color: var(--black);
+    }
+
+    /* ── FAQ ── */
+    #faq { border-top: 1px solid var(--border); }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .faq-item {
+      background: var(--mid);
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 24px 28px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: background 0.2s;
+    }
+
+    .faq-q:hover { background: rgba(255,255,255,0.04); }
+
+    .faq-q .faq-icon {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--accent);
+      flex-shrink: 0;
+      transition: transform 0.3s;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s;
+      padding: 0 28px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding: 0 28px 24px;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      border-top: 1px solid var(--border);
+      max-width: 1100px;
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-left .section-body { margin-bottom: 32px; }
+
+    .trust-points {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .trust-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .trust-point .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    input, textarea, select {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+    }
+
+    textarea { resize: vertical; min-height: 120px; }
+
+    select option { background: var(--mid); }
+
+    .submit-btn {
+      background: var(--accent);
+      color: var(--black);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 16px;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      width: 100%;
+    }
+
+    .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .form-note {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .footer-logo span { color: var(--accent); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 120px 20px 60px; }
+      section { padding: 70px 20px; }
+      .steps { grid-template-columns: 1fr; }
+      .pricing-cards { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 48px; }
+      .field-row { grid-template-columns: 1fr; }
+      footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Fetch<span>NZ</span></a>
+    <a href="#contact" class="nav-cta">Make a request</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">NZ's Personal Shopping Service</div>
+    <h1>Can't get it<br/>in NZ?<br/><em>We'll get it.</em></h1>
+    <p class="hero-sub">We source anything from overseas brands and websites that don't ship to New Zealand — and deliver it straight to your door. Quoted in NZD, no hassle.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Make a request →</a>
+      <span class="hero-note">Quotes within 24 hours. No commitment.</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="hi">Uniqlo</span><span>·</span>
+      <span>US Nike Drops</span><span>·</span>
+      <span class="hi">Jordan Brand</span><span>·</span>
+      <span>ASOS UK</span><span>·</span>
+      <span class="hi">Gymshark US</span><span>·</span>
+      <span>Carhartt WIP</span><span>·</span>
+      <span class="hi">New Balance US</span><span>·</span>
+      <span>Lululemon US</span><span>·</span>
+      <span class="hi">Supreme</span><span>·</span>
+      <span>Tech & Gadgets</span><span>·</span>
+      <span class="hi">Supplements</span><span>·</span>
+      <span>Anything Else</span><span>·</span>
+      <!-- duplicate for seamless loop -->
+      <span class="hi">Uniqlo</span><span>·</span>
+      <span>US Nike Drops</span><span>·</span>
+      <span class="hi">Jordan Brand</span><span>·</span>
+      <span>ASOS UK</span><span>·</span>
+      <span class="hi">Gymshark US</span><span>·</span>
+      <span>Carhartt WIP</span><span>·</span>
+      <span class="hi">New Balance US</span><span>·</span>
+      <span>Lululemon US</span><span>·</span>
+      <span class="hi">Supreme</span><span>·</span>
+      <span>Tech & Gadgets</span><span>·</span>
+      <span class="hi">Supplements</span><span>·</span>
+      <span>Anything Else</span><span>·</span>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">Three steps.<br/>That's it.</h2>
+    <p class="section-body">No international credit cards, no freight forwarders, no customs headaches. We handle everything end to end.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Tell us what you want</h3>
+        <p>Fill in the request form with a link to the product and any details — size, colour, variant. We'll send you a full quote within 24 hours.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Pay your quote upfront</h3>
+        <p>Approve the quote and pay in NZD — product cost, shipping, and our service fee all included. No surprises, no hidden extras.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Receive your order</h3>
+        <p>We source it, import it, and courier it straight to your door. Typical delivery is 7–14 days depending on origin.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section id="brands">
+    <div class="section-label">What we source</div>
+    <h2 class="section-title">If it exists,<br/>we can get it.</h2>
+    <p class="section-body">We source from Australia, USA, UK, and Japan. If a brand doesn't ship to NZ — we do.</p>
+    <div class="brands-grid">
+      <div class="brand-card">
+        <div class="brand-name">Uniqlo</div>
+        <div class="brand-from">Japan / Australia</div>
+        <div class="brand-tag">High demand</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-name">Nike US</div>
+        <div class="brand-from">United States</div>
+        <div class="brand-tag">Exclusive drops</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-name">Jordan Brand</div>
+        <div class="brand-from">United States</div>
+        <div class="brand-tag">Limited releases</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-name">Carhartt WIP</div>
+        <div class="brand-from">United States / UK</div>
+        <div class="brand-tag">Popular</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-name">Lululemon US</div>
+        <div class="brand-from">United States</div>
+        <div class="brand-tag">Full range</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-name">Anything else</div>
+        <div class="brand-from">AU · US · UK · JP</div>
+        <div class="brand-tag">Just ask</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Simple,<br/>transparent fees.</h2>
+    <p class="section-body">You always see the full breakdown before you pay anything. No hidden costs.</p>
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <div class="pricing-tier">Standard</div>
+        <div class="pricing-amount">$20</div>
+        <div class="pricing-desc">Service fee per order. Best for single items or small orders from one store.</div>
+        <ul class="pricing-features">
+          <li>One store per order</li>
+          <li>AU, US, UK, JP sourcing</li>
+          <li>Quote within 24 hours</li>
+          <li>Full tracking provided</li>
+        </ul>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-tier">Multi-item</div>
+        <div class="pricing-amount">$30</div>
+        <div class="pricing-desc">Service fee per order. Best for multiple items or items across more than one store.</div>
+        <ul class="pricing-features">
+          <li>Multiple stores per order</li>
+          <li>AU, US, UK, JP sourcing</li>
+          <li>Quote within 24 hours</li>
+          <li>Full tracking provided</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-tier">Bulk / Complex</div>
+        <div class="pricing-amount">POA</div>
+        <div class="pricing-desc">For large or complex orders, limited releases, or items requiring extra legwork.</div>
+        <ul class="pricing-features">
+          <li>Custom quote provided</li>
+          <li>Priority handling</li>
+          <li>AU, US, UK, JP sourcing</li>
+          <li>Full tracking provided</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Common<br/>questions.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do I pay before you order?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes — full payment is required upfront before we place any order. This covers the product cost, inbound shipping, our service fee, and NZ courier delivery. You'll receive a full itemised quote before committing.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How long does delivery take?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Typically 7–14 days from order confirmation, depending on the origin country. Australia is usually the fastest at 5–8 days. US and UK orders typically take 10–14 days. We'll give you an estimated timeframe in your quote.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What if my item is out of stock or unavailable?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">We'll let you know immediately and issue a full refund. We always check availability before accepting payment, but if something sells out between quote and purchase we'll contact you straight away.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What can't you source?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Anything restricted by NZ Customs — food, plants, certain supplements, weapons, and hazardous materials. If you're unsure whether your item is restricted, just ask us before submitting a request and we'll let you know upfront.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is this legal?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes. We purchase genuine products that are legally sold in their country of origin and import them to NZ. This is called parallel importing and is completely legal in New Zealand under the Copyright Act.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do you ship anywhere in New Zealand?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes — we courier to any address in New Zealand including rural delivery. Rural delivery may add 1–2 days to the estimated timeframe and is included in the quoted courier cost.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-wrap">
+      <div class="contact-left">
+        <div class="section-label">Request a product</div>
+        <h2 class="section-title">Tell us what<br/>you want.</h2>
+        <p class="section-body">Fill in the form and we'll send you a full quote within 24 hours. No commitment until you approve.</p>
+        <div class="trust-points">
+          <div class="trust-point"><span class="dot"></span><span>Quote within 24 hours, no commitment required</span></div>
+          <div class="trust-point"><span class="dot"></span><span>Full cost breakdown before you pay anything</span></div>
+          <div class="trust-point"><span class="dot"></span><span>NZ-owned and operated</span></div>
+          <div class="trust-point"><span class="dot"></span><span>Sourcing from AU, US, UK, and Japan</span></div>
+        </div>
+      </div>
+      <div class="contact-right">
+        <form action="https://formspree.io/f/mnjkwdqa" method="POST" accept-charset="UTF-8">
+          <input type="hidden" name="_subject" value="New Fetch NZ product request" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" placeholder="Jeremy" required />
+            </div>
+            <div class="field">
+              <label for="email">Your email</label>
+              <input type="email" id="email" name="email" placeholder="you@email.com" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="product">What do you want?</label>
+            <input type="text" id="product" name="product" placeholder="e.g. Uniqlo HEATTECH crew neck, size M, black" required />
+          </div>
+          <div class="field">
+            <label for="link">Link to the product</label>
+            <input type="url" id="link" name="link" placeholder="https://..." />
+          </div>
+          <div class="field">
+            <label for="country">Sourcing from</label>
+            <select id="country" name="country">
+              <option value="">Not sure</option>
+              <option value="AU">Australia</option>
+              <option value="US">United States</option>
+              <option value="UK">United Kingdom</option>
+              <option value="JP">Japan</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="notes">Any other details</label>
+            <textarea id="notes" name="notes" placeholder="Size, colour, quantity, anything else we should know..."></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send request →</button>
+          <p class="form-note">We'll reply within 24 hours with a full quote.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="footer-logo">Fetch<span>NZ</span></a>
+    <p class="footer-copy">NZ-owned and operated. We get it here so you don't have to.</p>
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+
+</body>
+</html>
